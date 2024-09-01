@@ -31,7 +31,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     ));
 
     main.on_add_todo({
-        let db = db.clone();
+        let db = Rc::clone(&db);
         let weak = main.as_weak();
         move |new| {
             let todos = todos_model.clone();
