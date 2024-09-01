@@ -1,0 +1,59 @@
+import { ListView, Button, TextEdit, LineEdit } from "std-widgets.slint";
+import {List} from "./list.slint";
+import { HorizontalBox , VerticalBox} from "std-widgets.slint";
+export component Main inherits Window {
+    in-out property <[string]> todos;
+    callback add-todo(string);
+    callback get-todos();
+
+    width: 1000px;
+    height: 500px;
+    HorizontalLayout {
+        aside := VerticalLayout {
+            height: root.height;
+            alignment: start;
+            width: 300px;
+            spacing: 5px;
+            VerticalBox {
+                input := LineEdit {
+                    height: 30px;
+                    font-size: 14px;
+                    placeholder-text: "new todo";
+                    horizontal-alignment: center;
+                }
+
+                Rectangle {
+                    border-radius: 20px;
+                    Button {
+                        height: 40px;
+                        clicked => {
+                            input.text = "";
+                            root.add-todo(input.text);
+                        }
+                        text: "Add new";
+                        primary: true;
+                    }
+                }
+
+                /*
+
+                Rectangle {
+                    Button {
+                        clicked => {
+                            root.get-todos();
+                        }
+                        text: "Get Todos";
+                    }
+                }
+                */
+            }
+        }
+
+        main := VerticalLayout {
+            width: 700px;
+            list := List {
+                todos: todos;
+            }
+        }
+    }
+}

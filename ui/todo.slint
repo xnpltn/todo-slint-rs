@@ -1,0 +1,28 @@
+import { GridBox , CheckBox, Switch } from "std-widgets.slint";
+
+
+component TodoItem inherits Rectangle {
+    in-out property <string> todo;
+    in-out property <bool> completed;
+    height: 30px;
+    GridBox {
+        Row {
+            HorizontalLayout {
+                alignment: space-between;
+                Text {
+                    color: black;
+                    text: todo;
+                }
+
+                Switch {
+                    text: @tr("completed");
+                    toggled => {
+                        completed = !completed;
+                    }
+                }
+            }
+        }
+    }
+}
+
+export { TodoItem}
