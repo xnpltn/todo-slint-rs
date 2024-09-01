@@ -1,8 +1,10 @@
 import { ListView, Button, TextEdit, LineEdit } from "std-widgets.slint";
-import {List} from "./list.slint";
-import { HorizontalBox , VerticalBox} from "std-widgets.slint";
+import {List} from "list.slint";
+import { HorizontalBox , VerticalBox, GridBox} from "std-widgets.slint";
+import { Todo} from "./types.slint";
+
 export component Main inherits Window {
-    in-out property <[string]> todos;
+    in-out property <[Todo]> todos;
     callback add-todo(string);
     callback get-todos();
 
@@ -22,30 +24,30 @@ export component Main inherits Window {
                     horizontal-alignment: center;
                 }
 
-                Rectangle {
-                    border-radius: 20px;
-                    Button {
-                        height: 40px;
-                        clicked => {
-                            input.text = "";
-                            root.add-todo(input.text);
+                GridBox {
+                    Rectangle {
+                        border-radius: 20px;
+                        Button {
+                            height: 30px;
+                            clicked => {
+                                root.add-todo(input.text);
+                                input.text = "";
+                            }
+                            text: "Add new";
+                            primary: true;
                         }
-                        text: "Add new";
-                        primary: true;
+                    }
+
+                    Rectangle {
+                        border-radius: 20px;
+                        Button {
+                            clicked => {
+                                root.get-todos();
+                            }
+                            text: "Refresh";
+                        }
                     }
                 }
-
-                /*
-
-                Rectangle {
-                    Button {
-                        clicked => {
-                            root.get-todos();
-                        }
-                        text: "Get Todos";
-                    }
-                }
-                */
             }
         }
 

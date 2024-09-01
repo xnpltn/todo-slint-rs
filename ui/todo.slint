@@ -1,21 +1,26 @@
 import { GridBox , CheckBox, Switch } from "std-widgets.slint";
 
-
+import {Todo} from "./types.slint";
 component TodoItem inherits Rectangle {
-    in-out property <string> todo;
+    in-out property <Todo> todo;
     in-out property <bool> completed;
-    height: 30px;
+    height: 45px;
+    border-color: blue;
+    border-width: 1px;
+    border-radius: 4px;
     GridBox {
         Row {
             HorizontalLayout {
                 alignment: space-between;
+                padding: 3px;
                 Text {
-                    color: black;
-                    text: todo;
+                    font-size: 20px;
+                    text: todo.name;
                 }
 
                 Switch {
                     text: @tr("completed");
+                    checked: todo.completed;
                     toggled => {
                         completed = !completed;
                     }

@@ -1,19 +1,22 @@
 import { ListView } from "std-widgets.slint";
 import {TodoItem} from "todo.slint";
+import {Todo} from "./types.slint";
 component View inherits Rectangle {
-    in-out property <string> todo;
-    x: 0;
-    background: blue;
-    height: 40px;
+    in-out property <Todo> todo;
 
+    callback example(string);
+    x: 0;
+    height: 40px;
     border-radius: 5px;
+    border-color: blue;
     TodoItem {
         todo: todo;
     }
 }
 
 component List inherits ListView {
-    in-out property <[string]> todos;
+    in-out property <[Todo]> todos;
+
     for todo[i] in todos: View {
         todo: todo;
     }
